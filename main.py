@@ -1,10 +1,29 @@
 import random, time, sys
 
+
 def main():
     MAX_NUM_SNAILS = 8
     MAX_NAME_LENGTH = 20
     FINISH_LINE = 40
 
+    snailNames = get_snail_count_and_names(MAX_NUM_SNAILS)
+    numSnailsRacing = len(snailNames)
+
+    print('\n' * 40)
+    print('START' + (' ' * (FINISH_LINE - len('START')) + 'FINISH'))
+    print('|' + (' ' * (FINISH_LINE - len('|')) + '|'))
+    snailProgress = {}
+    for snailName in snailNames:
+        print(snailName[:MAX_NAME_LENGTH])
+        print('@v')
+        snailProgress[snailName] = 0
+
+    time.sleep(1.5)
+
+    print_game(numSnailsRacing, snailProgress, snailNames, FINISH_LINE, MAX_NAME_LENGTH)
+
+
+def get_snail_count_and_names(MAX_NUM_SNAILS):
     while True:
         print('How many snails will race? Max:', MAX_NUM_SNAILS)
         response = input('>')
@@ -27,17 +46,10 @@ def main():
                 break
         snailNames.append(name)
 
-    print('\n' * 40)
-    print('START' + (' ' * (FINISH_LINE - len('START')) + 'FINISH'))
-    print('|' + (' ' * (FINISH_LINE - len('|')) + '|'))
-    snailProgress = {}
-    for snailName in snailNames:
-        print(snailName[:MAX_NAME_LENGTH])
-        print('@v')
-        snailProgress[snailName] = 0
+    return snailNames
 
-    time.sleep(1.5)
 
+def print_game(numSnailsRacing, snailProgress, snailNames, FINISH_LINE, MAX_NAME_LENGTH):
     while True:
         for i in range(random.randint(1, numSnailsRacing // 2)):
             randomSnailName = random.choice(snailNames)
@@ -59,18 +71,6 @@ def main():
             print(('.' * snailProgress[snailName]) + '@v')
 
 
-def randomTesting():
-    for i in range(100):
-        pass
-
-    myNum = random.randint(1, 2 // 2)
-    print(myNum)
-
-
-
 if __name__ == '__main__':
     main()
     # randomTesting()
-
-
-
